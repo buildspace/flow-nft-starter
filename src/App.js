@@ -8,29 +8,20 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 function App() {
 
-  //creating the state variables
   const [ network, setNetwork ] = useState();
-
-  useEffect(()=>{
-    //adding an event listener to check for network changes
-    //only works for lilico - testnet to mainnet - changes
-    window.addEventListener("message", d => {
-      if(d.data.type==='LILICO:NETWORK') setNetwork(d.data.network)
-    })
-  }, [])
 
   return (
     <div className="App">
-      {network === "mainnet" ? alert("You're on Mainnet. Please change it to Testnet") : ""}
+      {network === "mainnet" ? alert("You're on Mainnet. Please change your network to the Testnet") : ""}
 
       <div className="container">
         <div className="header-container">
           <div className="logo-container">
             <img src="./logo.png" className="flow-logo" alt="flow logo"/>
-            <p className="header">Flow</p>
+            <p className="header">✨Awesome NFTs on Flow ✨</p>
           </div>
 
-          <p className="sub-text">Built for the next generation of apps and games</p>
+          <p className="sub-text">The easiest NFT mint experience ever!</p>
         </div>
 
 
