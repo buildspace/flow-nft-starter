@@ -8,12 +8,8 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 function App() {
 
-  const [ network, setNetwork ] = useState();
-
   return (
     <div className="App">
-      {network === "mainnet" ? alert("You're on Mainnet. Please change your network to the Testnet") : ""}
-
       <div className="container">
         <div className="header-container">
           <div className="logo-container">
@@ -23,7 +19,6 @@ function App() {
 
           <p className="sub-text">The easiest NFT mint experience ever!</p>
         </div>
-
 
         <div className="footer-container">
             <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
