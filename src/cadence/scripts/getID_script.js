@@ -7,7 +7,7 @@ pub fun main(address: Address): [UInt64] {
     let account = getAccount(address)
 
     let collection = account
-        .getCapability(/public/BuildspaceNFTCollection)
+        .getCapability(/public/BottomShotCollection)
         .borrow<&{MetadataViews.ResolverCollection}>()
         ?? panic("Could not borrow a reference to the collection")
 

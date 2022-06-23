@@ -1,10 +1,11 @@
 export const getTotalSupply =
+// REPLACE THIS WITH YOUR CONTRACT NAME + ADDRESS
 `
-import BuildspaceNFT from 0xb25c3b0e6ed6d79a;
+import BottomShot from 0x7b6adb682517f137;
 
 pub fun main(): UInt64 {
 
-    return BuildspaceNFT.totalSupply;
+    return BottomShot.totalSupply;
 
 }
 `
