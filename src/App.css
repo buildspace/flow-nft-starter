@@ -1,7 +1,7 @@
 .App {
   height: 100vh;
   background-color: rgb(20, 20, 20);
-  overflow: scroll;
+  overflow: hidden;
   text-align: center;
   overflow-x: hidden;
 }
@@ -27,6 +27,10 @@
   margin: 0;
   font-size: 50px;
   font-weight: bold;
+}
+
+.header-container{
+  padding: 0;
 }
 
 .sub-text {
@@ -63,6 +67,18 @@
   justify-content: center;
 }
 
+.image-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container > img {
+  border-radius: 10px;
+  padding: 15px;
+}
+
 .connect-wallet-button {
   color: white;
   background: -webkit-linear-gradient(55deg, rgba(2, 239, 139, 1) 0%, rgba(0, 254, 255, 1) 100%);
@@ -85,7 +101,7 @@
   width: 100%;
   bottom: 0;
   left: 0;
-  /* padding-bottom: 45px; */
+  padding-top: 45px;
 }
 
 .twitter-logo {
