@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
 import twitterLogo from "./assets/twitter-logo.svg";
+import splashScreen from "./assets/gto6.webp"
 
 const TWITTER_HANDLE = "_buildspace";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
@@ -13,11 +14,14 @@ function App() {
       <div className="container">
         <div className="header-container">
           <div className="logo-container">
-            <img src="./logo.png" className="flow-logo" alt="flow logo"/>
-            <p className="header">✨Awesome NFTs on Flow ✨</p>
+            {/* <img src="./logo.png" className="flow-logo" alt="flow logo"/> */}
+            <p className="header">🚓 Grand Theft Office 🏢</p>
           </div>
-
-          <p className="sub-text">The easiest NFT mint experience ever!</p>
+          <br/>
+          <center>
+            <img height="600" width="400" src={splashScreen} alt="grand theft office loading screen"/>
+          </center>
+          <p className="sub-text">Can you survive the streets of Scranton?</p>
         </div>
 
         <div className="footer-container">
