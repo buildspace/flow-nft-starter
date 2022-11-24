@@ -8,6 +8,10 @@ import * as types from "@onflow/types";
 import twitterLogo from "./assets/twitter-logo.svg";
 import splashScreen from "./assets/gto6.webp"
 
+// Contracts 
+import { mintNFT } from "./cadence/transactions/mintNFT_tx";
+import { getTotalSupply } from "./cadence/scripts/getTotalSupply_script";
+
 // Constants
 const TWITTER_HANDLE = "Atemosta";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
@@ -23,7 +27,7 @@ fcl.config({
 
 function App() {
   const [ user, setUser ] = useState();
-  const [network, setNetwork] = useState("");
+  // const [network, setNetwork] = useState("");
   
   // FCL Integration
   const logIn = () => {
@@ -32,6 +36,43 @@ function App() {
   const logOut = () => {
       fcl.unauthenticate();
   };
+  const mint = async() => {
+
+    let _totalSupply;
+    try {
+      _totalSupply = await fcl.query({
+        cadence: `${getTotalSupply}`
+      })
+    } catch(err) {console.log(err)}
+    
+    const _id = parseInt(_totalSupply) + 1;
+    
+    try {
+      const transactionId = await fcl.mutate({
+        cadence: `${mintNFT}`,
+        args: (arg, t) => [
+          arg(user.addr, types.Address), //address to which the NFT should be minted
+          arg("Dundies # "+_id.toString(), types.String), // Name
+          arg("Dundies on the blockchain", types.String), // Description
+          arg("ipfs://bafybeigmeykxsur4ya2p3nw6r7hz2kp3r2clhvzwiqaashhz5efhewkkgu/"+_id+".png", types.String),
+          // arg("ipfs://bafkreienxcqmtthsppd5inceh5pcsvy4j37ar5ytxlghlypmpjvpyindmy", types.String), // TODO
+        ],
+        proposer: fcl.currentUser,
+        payer: fcl.currentUser,
+        limit: 99
+      })
+      console.log("Minting NFT now with transaction ID", transactionId);
+      const transaction = await fcl.tx(transactionId).onceSealed();
+      console.log("Testnet explorer link:", `https://testnet.flowscan.org/transaction/${transactionId}`);
+      console.log(transaction);
+      alert("NFT minted successfully!")
+    } catch (error) {
+      console.log(error);
+      alert("Error minting NFT, please check the console for error details!")
+    }
+  }
+
+  // Use Effects
   useEffect(() => {
     // This listens to changes in the user objects
     // and updates the connected user
@@ -39,14 +80,15 @@ function App() {
   }, [])
 
   // Lilico Integration
-  useEffect(()=>{
-    // This is an event listener for all messages that are sent to the window
-    window.addEventListener("message", d => {
-    // This only works for Lilico testnet to mainnet changes
-      if(d.data.type==='LILICO:NETWORK') setNetwork(d.data.network)
-    })
-  }, [])
+  // useEffect(()=>{
+  //   // This is an event listener for all messages that are sent to the window
+  //   window.addEventListener("message", d => {
+  //   // This only works for Lilico testnet to mainnet changes
+  //     if(d.data.type==='LILICO:NETWORK') setNetwork(d.data.network)
+  //   })
+  // }, [])
 
+  // Render Components 
   const RenderLogin = () => {
     return (
       <div>
@@ -56,7 +98,6 @@ function App() {
       </div>
     );
   };
-
   const RenderLogout = () => {
     if (user && user.addr) {
       return (
@@ -70,6 +111,15 @@ function App() {
     }
     return undefined;
   };
+  const RenderMintButton = () => {
+    return (
+      <div>
+        <button className="cta-button button-glow" onClick={() => mint()}>
+          Mint
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
@@ -88,7 +138,7 @@ function App() {
         </div>
 
         {/* If not logged in, render login button */}
-        {user && user.addr ? "Wallet connected!" : <RenderLogin />}
+        {user && user.addr ? <RenderMintButton /> : <RenderLogin />}
 
         <div className="footer-container">
             <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
