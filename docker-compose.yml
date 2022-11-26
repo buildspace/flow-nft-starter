@@ -1,0 +1,26 @@
+# .env for environment variables
+---
+version: "3.7"
+services:
+  ui:
+    container_name: "flow-nft-demo-ui"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8095:80
+    restart: unless-stopped
+    environment:
+      - CHOKIDAR_USEPOLLING=true # enables a polling mechanism via chokidar so that hot-reloading will work.
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gto.rule=Host(`gto.atemosta.com`)"
+      # - "traefik.http.routers.gto.middlewares=auth"
+      - "traefik.http.routers.gto.entrypoints=web-secure"
+      - "traefik.http.routers.gto.tls=true"
+      - "traefik.http.routers.gto.tls.certResolver=default"
+    networks:
+      - traefik
+networks:
+  traefik:
+    external: true

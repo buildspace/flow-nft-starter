@@ -16,7 +16,7 @@ import { getTotalSupply } from "./cadence/scripts/getTotalSupply_script";
 
 // Constants
 const TWITTER_HANDLE = "Atemosta";
-const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
+const TWITTER_LINK = `https://mastodon.social/@${TWITTER_HANDLE}`;
 
 // FCL Config
 fcl.config({
